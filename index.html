@@ -632,10 +632,6 @@
         <div id="rptab-ai" class="rp-section">
           <div class="rp-header">✦ AI Assistant</div>
           <div class="ai-panel-body">
-            <div id="ai-key-warn" class="warn-box" style="display:none">
-              <i class="fa fa-triangle-exclamation"></i>
-              Add your Anthropic API key in <strong>Settings</strong> to enable AI.
-            </div>
             <select id="ai-action" class="ai-select">
               <option value="rewrite">Rewrite</option>
               <option value="fix-grammar">Fix Grammar</option>
@@ -719,25 +715,6 @@
     <div class="modal-head"><h3><i class="fa fa-gear"></i> Settings</h3><button onclick="App.closeModal('modal-settings')"><i class="fa fa-xmark"></i></button></div>
     <div class="modal-body">
       <div class="setting-group">
-        <h4>AI Configuration</h4>
-        <div class="setting-field">
-          <label>Anthropic API Key</label>
-          <div class="api-key-row">
-            <input type="password" id="api-key" placeholder="sk-ant-api03-…" autocomplete="off">
-            <button onclick="App.toggleKeyVis()"><i class="fa fa-eye" id="key-eye"></i></button>
-          </div>
-          <p class="setting-hint">Stored in your browser only. Get your key at console.anthropic.com</p>
-        </div>
-        <div class="setting-field">
-          <label>AI Model</label>
-          <select id="ai-model">
-            <option value="claude-sonnet-4-6">Claude Sonnet 4.6 (Recommended)</option>
-            <option value="claude-opus-4-7">Claude Opus 4.7 (Most Capable)</option>
-            <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 (Fastest)</option>
-          </select>
-        </div>
-      </div>
-      <div class="setting-group">
         <h4>Editor</h4>
         <div class="setting-field">
           <label>Default Zoom</label>
@@ -766,7 +743,6 @@
   <div class="modal-box">
     <div class="modal-head"><h3><i class="fa fa-wand-magic-sparkles"></i> AI Assistant</h3><button onclick="App.closeModal('modal-ai')"><i class="fa fa-xmark"></i></button></div>
     <div class="modal-body">
-      <div id="ai-modal-key-warn" class="warn-box" style="display:none"><i class="fa fa-triangle-exclamation"></i> Add your API key in Settings first.</div>
       <div class="modal-field"><label>Action</label>
         <select id="ai-modal-action" onchange="AI.onModalActionChange()">
           <option value="rewrite">Rewrite</option>

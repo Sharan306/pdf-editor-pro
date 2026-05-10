@@ -21,7 +21,6 @@ const App = (() => {
     // ── Init ──
 
     function init() {
-        loadSettingsUI();
         setupToolbar();
         setupDragDrop();
         setupKeyboard();
@@ -607,9 +606,6 @@ const App = (() => {
         const sel = document.getElementById('ai-modal-action');
         if (action && sel) sel.value = action;
         AI.onModalActionChange();
-        // Check API key
-        const hasKey = !!settings.apiKey;
-        document.getElementById('ai-modal-key-warn').style.display = hasKey ? 'none' : 'flex';
         document.getElementById('ai-modal-result-box').style.display = 'none';
         document.getElementById('ai-modal-spinner').style.display = 'none';
         openModal('modal-ai');
@@ -618,39 +614,20 @@ const App = (() => {
     // ── Settings ──
 
     function openSettings() {
-        document.getElementById('api-key').value = settings.apiKey || '';
-        document.getElementById('ai-model').value = settings.model || 'claude-sonnet-4-6';
         document.getElementById('def-zoom').value = settings.defaultZoom || 1;
         document.getElementById('auto-ocr').checked = !!settings.autoOCR;
         openModal('modal-settings');
     }
 
     function saveSettings() {
-        settings.apiKey = document.getElementById('api-key').value.trim();
-        settings.model = document.getElementById('ai-model').value;
         settings.defaultZoom = +document.getElementById('def-zoom').value;
         settings.autoOCR = document.getElementById('auto-ocr').checked;
         localStorage.setItem('pdfeditor-settings', JSON.stringify(settings));
         closeModal('modal-settings');
         toast('Settings saved', 'success');
-        // Update AI key warning
-        const warn = document.getElementById('ai-key-warn');
-        if (warn) warn.style.display = settings.apiKey ? 'none' : 'flex';
     }
 
     function getSettings() { return settings; }
-
-    function toggleKeyVis() {
-        const input = document.getElementById('api-key');
-        const icon = document.getElementById('key-eye');
-        if (input.type === 'password') {
-            input.type = 'text';
-            icon.className = 'fa fa-eye-slash';
-        } else {
-            input.type = 'password';
-            icon.className = 'fa fa-eye';
-        }
-    }
 
     // ── Export / Download ──
 
@@ -769,14 +746,6 @@ const App = (() => {
         setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity 0.3s'; setTimeout(() => el.remove(), 300); }, 3000);
     }
 
-    // ── Load Settings into UI ──
-
-    function loadSettingsUI() {
-        if (settings.apiKey) {
-            const warn = document.getElementById('ai-key-warn');
-            if (warn) warn.style.display = 'none';
-        }
-    }
 
     // ── DOM Ready ──
 
@@ -798,7 +767,7 @@ const App = (() => {
         openFindReplace, findNext, replaceCurrent, replaceAll,
         openSignature, clearSig, previewSigImage, applySig,
         openAI,
-        openSettings, saveSettings, getSettings, toggleKeyVis,
+        openSettings, saveSettings, getSettings,
         downloadFile,
         addComment,
         showCtxMenu, hideCtxMenu,

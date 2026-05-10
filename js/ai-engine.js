@@ -212,7 +212,6 @@ const AI = (() => {
 
         if (!text) { App.toast('Please enter some text first', 'error'); return; }
 
-        document.getElementById('ai-key-warn').style.display = 'none';
         document.getElementById('ai-result-box').style.display = 'none';
         document.getElementById('ai-spinner').style.display = 'flex';
         document.getElementById('ai-status').textContent = 'AI thinking…';
@@ -270,7 +269,6 @@ const AI = (() => {
 
         const inputText = action === 'summarize' && !text ? '(see full document)' : text;
 
-        document.getElementById('ai-modal-key-warn').style.display = 'none';
         document.getElementById('ai-modal-result-box').style.display = 'none';
         document.getElementById('ai-modal-spinner').style.display = 'flex';
 
