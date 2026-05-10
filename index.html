@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Editor Pro — AI-Powered PDF Editing</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+<body>
+<input type="file" id="file-input" accept=".pdf" style="display:none" onchange="App.handleFileInput(this)">
+
+<!-- ════════════════════════════════════════════════
+     LANDING PAGE
+════════════════════════════════════════════════ -->
+<div id="landing">
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+
+    <nav class="hero-nav">
+      <div class="nav-logo">
+        <div class="nav-logo-icon">⬡</div>
+        <span>PDF Editor <span class="pro-badge">PRO</span></span>
+      </div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#" onclick="App.openSettings();return false">Settings</a>
+      </div>
+      <button class="btn-nav-cta" onclick="document.getElementById('file-input').click()">
+        Open PDF <i class="fa fa-arrow-right"></i>
+      </button>
+    </nav>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        AI-Powered · OCR · Annotations · Signatures
+      </div>
+      <h1 class="hero-title">
+        Edit Any PDF.<br>
+        <span class="gradient-title">Even Scanned Ones.</span>
+      </h1>
+      <p class="hero-subtitle">
+        The only PDF editor that reads scanned documents and lets AI rewrite, translate,
+        or improve any text. 20+ professional tools in your browser — no installation needed.
+      </p>
+      <div class="hero-cta">
+        <button class="btn-hero-primary" onclick="document.getElementById('file-input').click()">
+          <i class="fa fa-folder-open"></i>
+          Upload Your PDF
+        </button>
+        <button class="btn-hero-secondary" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">
+          <i class="fa fa-play"></i>
+          See What It Can Do
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span>20+</span><label>Editing Tools</label></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><span>AI</span><label>OCR + Rewrite</label></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><span>10+</span><label>AI Actions</label></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><span>Free</span><label>In Browser</label></div>
+      </div>
+    </div>
+
+    <!-- Floating editor preview -->
+    <div class="hero-visual">
+      <div class="floating-editor">
+        <div class="fe-toolbar">
+          <div class="fe-dot red"></div><div class="fe-dot amber"></div><div class="fe-dot green"></div>
+          <span class="fe-title">contract_2024.pdf</span>
+        </div>
+        <div class="fe-body">
+          <div class="fe-sidebar">
+            <div class="fe-tool active"><i class="fa fa-arrow-pointer"></i></div>
+            <div class="fe-tool"><i class="fa fa-font"></i></div>
+            <div class="fe-tool"><i class="fa fa-pencil"></i></div>
+            <div class="fe-tool ai-glow"><i class="fa fa-wand-magic-sparkles"></i></div>
+          </div>
+          <div class="fe-page">
+            <div class="fe-line"></div>
+            <div class="fe-line short"></div>
+            <div class="fe-line"></div>
+            <div class="fe-highlight-box"></div>
+            <div class="fe-line short"></div>
+            <div class="fe-line"></div>
+            <div class="fe-cursor"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Feature Demos ── -->
+  <section class="features-section" id="features">
+    <div class="section-header">
+      <div class="section-eyebrow">Capabilities</div>
+      <h2>Everything Adobe charges for,<br><span class="gradient-title">free in your browser.</span></h2>
+      <p>Watch each feature in action below</p>
+    </div>
+
+    <div class="demos-grid">
+
+      <!-- Demo 1: OCR -->
+      <div class="demo-card" onclick="document.getElementById('file-input').click()">
+        <div class="demo-anim-wrap">
+          <div class="demo-badge">✦ AI</div>
+          <div class="ocr-demo">
+            <div class="ocr-doc">
+              <div class="ocr-line w80"></div>
+              <div class="ocr-line w60"></div>
+              <div class="ocr-line w90"></div>
+              <div class="ocr-line w50"></div>
+              <div class="ocr-line w75"></div>
+              <div class="ocr-line w85"></div>
+            </div>
+            <div class="scan-beam"></div>
+            <div class="ocr-result-box box1"></div>
+            <div class="ocr-result-box box2"></div>
+            <div class="ocr-result-box box3"></div>
+          </div>
+        </div>
+        <div class="demo-info">
+          <div class="demo-icon"><i class="fa fa-eye"></i></div>
+          <div>
+            <h3>OCR — Edit Scanned PDFs</h3>
+            <p>AI scans your document and makes every word in a scanned PDF fully editable in seconds</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo 2: AI Edit -->
+      <div class="demo-card" onclick="App.openAI('rewrite')">
+        <div class="demo-anim-wrap">
+          <div class="demo-badge ai-badge">✦ AI</div>
+          <div class="ai-edit-demo">
+            <div class="ai-text-before">
+              <div class="ait-line w90"></div>
+              <div class="ait-line w70"></div>
+              <div class="ait-line w80"></div>
+            </div>
+            <div class="ai-thinking">
+              <div class="ai-orb"></div>
+              <span>Rewriting with AI...</span>
+              <div class="ai-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div class="ai-text-after">
+              <div class="ait-line-new w95"></div>
+              <div class="ait-line-new w65"></div>
+              <div class="ait-line-new w85"></div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-info">
+          <div class="demo-icon ai-icon"><i class="fa fa-wand-magic-sparkles"></i></div>
+          <div>
+            <h3>AI Rewrite &amp; Translate</h3>
+            <p>Select any text and let AI rewrite, fix grammar, translate to 10+ languages, or summarize</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo 3: Annotations -->
+      <div class="demo-card">
+        <div class="demo-anim-wrap">
+          <div class="annotate-demo">
+            <div class="ann-doc">
+              <div class="ann-line w90"></div>
+              <div class="ann-highlight-wrap">
+                <div class="ann-line w70 highlight-target"></div>
+                <div class="ann-sweep"></div>
+              </div>
+              <div class="ann-line w80"></div>
+              <div class="ann-comment-pin">
+                <i class="fa fa-comment"></i>
+                <div class="ann-comment-bubble">Looks good!</div>
+              </div>
+              <div class="ann-line w55"></div>
+              <div class="ann-underline-wrap">
+                <div class="ann-line w65"></div>
+                <div class="ann-underline-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-info">
+          <div class="demo-icon blue-icon"><i class="fa fa-highlighter"></i></div>
+          <div>
+            <h3>Highlight &amp; Annotate</h3>
+            <p>Highlight, underline, strikethrough, add sticky notes and comments anywhere on the page</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo 4: Drawing -->
+      <div class="demo-card">
+        <div class="demo-anim-wrap">
+          <div class="draw-demo">
+            <svg class="draw-svg" viewBox="0 0 280 160">
+              <rect x="20" y="20" width="240" height="120" rx="4" fill="#f8f9ff" stroke="#e2e8f0" stroke-width="1"/>
+              <path class="draw-path" d="M40 80 Q80 30 140 70 Q200 110 240 50" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round"/>
+              <rect class="draw-rect" x="60" y="90" width="80" height="40" rx="4" fill="none" stroke="#22d3ee" stroke-width="2"/>
+              <line class="draw-arrow" x1="170" y1="100" x2="220" y2="130" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="demo-info">
+          <div class="demo-icon cyan-icon"><i class="fa fa-pencil"></i></div>
+          <div>
+            <h3>Draw &amp; Add Shapes</h3>
+            <p>Freehand drawing, rectangles, circles, lines, and arrows with full color and style control</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo 5: Signature -->
+      <div class="demo-card">
+        <div class="demo-anim-wrap">
+          <div class="sig-demo">
+            <div class="sig-doc-area">
+              <div class="sig-doc-line w80"></div>
+              <div class="sig-doc-line w60"></div>
+              <div class="sig-doc-line w70"></div>
+              <div class="sig-line-rule"></div>
+              <svg class="sig-svg" viewBox="0 0 200 60">
+                <path class="sig-path" d="M10 40 C30 10, 50 50, 70 30 C90 10, 110 50, 130 35 C150 20, 170 45, 190 30" fill="none" stroke="#1e40af" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <div class="sig-label">Signature</div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-info">
+          <div class="demo-icon indigo-icon"><i class="fa fa-signature"></i></div>
+          <div>
+            <h3>Sign Documents</h3>
+            <p>Draw your signature, type it in a handwriting font, or upload an image — place it anywhere</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo 6: Redact -->
+      <div class="demo-card">
+        <div class="demo-anim-wrap">
+          <div class="redact-demo">
+            <div class="rd-line w90"></div>
+            <div class="rd-row">
+              <div class="rd-line w40"></div>
+              <div class="rd-redact-bar bar1"></div>
+              <div class="rd-line w20"></div>
+            </div>
+            <div class="rd-line w70"></div>
+            <div class="rd-row">
+              <div class="rd-line w30"></div>
+              <div class="rd-redact-bar bar2"></div>
+            </div>
+            <div class="rd-line w55"></div>
+            <div class="rd-line w80"></div>
+          </div>
+        </div>
+        <div class="demo-info">
+          <div class="demo-icon red-icon"><i class="fa fa-ban"></i></div>
+          <div>
+            <h3>Redact &amp; Protect</h3>
+            <p>Permanently black out sensitive information, add watermarks, and password protect your PDFs</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── How It Works ── -->
+  <section class="hiw-section" id="how-it-works">
+    <div class="section-header">
+      <div class="section-eyebrow">Process</div>
+      <h2>Three steps to a<br><span class="gradient-title">perfect PDF.</span></h2>
+    </div>
+    <div class="steps-row">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-icon-wrap"><i class="fa fa-folder-open"></i></div>
+        <h3>Upload</h3>
+        <p>Drag & drop any PDF — digital or scanned — directly into the browser. Nothing is uploaded to servers.</p>
+      </div>
+      <div class="step-arrow"><i class="fa fa-arrow-right"></i></div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-icon-wrap blue"><i class="fa fa-pen-to-square"></i></div>
+        <h3>Edit</h3>
+        <p>Use 20+ tools to edit text, draw, annotate, sign, redact, or let AI rewrite and translate content.</p>
+      </div>
+      <div class="step-arrow"><i class="fa fa-arrow-right"></i></div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-icon-wrap green"><i class="fa fa-download"></i></div>
+        <h3>Download</h3>
+        <p>Save your edited PDF with all changes preserved. Original formatting stays intact.</p>
+      </div>
+    </div>
+    <div class="hiw-cta">
+      <button class="btn-hero-primary big" onclick="document.getElementById('file-input').click()">
+        <i class="fa fa-rocket"></i>
+        Start Editing — It's Free
+      </button>
+      <p class="hiw-hint"><i class="fa fa-lock"></i> Files never leave your browser. 100% private.</p>
+    </div>
+  </section>
+
+</div><!-- /landing -->
+
+<!-- ════════════════════════════════════════════════
+     EDITOR APP
+════════════════════════════════════════════════ -->
+<div id="editor" style="display:none">
+
+  <!-- ── Top Bar ── -->
+  <header id="topbar">
+    <div class="tb-left">
+      <button class="tb-logo-btn" onclick="App.goToLanding()">
+        <div class="tb-logo-icon">⬡</div>
+        <span class="tb-logo-text">PDF Pro</span>
+      </button>
+      <div class="tb-sep"></div>
+      <div class="tb-breadcrumb">
+        <i class="fa fa-file-pdf"></i>
+        <span id="tb-filename">No file</span>
+      </div>
+    </div>
+    <div class="tb-center">
+      <button class="tb-btn" onclick="Editor.undo()" title="Undo (⌘Z)"><i class="fa fa-rotate-left"></i></button>
+      <button class="tb-btn" onclick="Editor.redo()" title="Redo (⌘Y)"><i class="fa fa-rotate-right"></i></button>
+      <div class="tb-sep"></div>
+      <button class="tb-btn" onclick="App.zoomOut()" title="Zoom Out">−</button>
+      <span id="zoom-pct" class="tb-zoom-lbl">100%</span>
+      <button class="tb-btn" onclick="App.zoomIn()" title="Zoom In">+</button>
+      <button class="tb-btn" onclick="App.fitPage()" title="Fit to window"><i class="fa fa-expand"></i></button>
+    </div>
+    <div class="tb-right">
+      <button class="tb-btn-outline" onclick="App.openFindReplace()"><i class="fa fa-magnifying-glass"></i> Find</button>
+      <button class="tb-btn-outline" onclick="App.openSettings()"><i class="fa fa-gear"></i></button>
+      <button class="tb-save-btn" id="btn-save" onclick="App.downloadFile()" disabled>
+        <i class="fa fa-download"></i> Save PDF
+      </button>
+    </div>
+  </header>
+
+  <!-- ── Body ── -->
+  <div id="editor-body">
+
+    <!-- ════ LEFT TOOLS SIDEBAR ════ -->
+    <aside id="left-tools">
+
+      <div class="tools-scroll">
+
+        <!-- Navigate -->
+        <div class="tool-group">
+          <div class="tg-sep-label">Navigate</div>
+          <button class="tool-btn active" data-tool="select">
+            <i class="fa fa-arrow-pointer"></i>
+            <span>Select</span>
+          </button>
+          <button class="tool-btn" data-tool="hand">
+            <i class="fa fa-hand"></i>
+            <span>Pan</span>
+          </button>
+        </div>
+
+        <div class="tg-divider"></div>
+
+        <!-- Text -->
+        <div class="tool-group">
+          <div class="tg-sep-label">Text</div>
+          <button class="tool-btn" data-tool="add-text">
+            <i class="fa fa-font"></i>
+            <span>Add Text</span>
+          </button>
+          <button class="tool-btn" data-tool="highlight">
+            <i class="fa fa-highlighter"></i>
+            <span>Highlight</span>
+          </button>
+          <button class="tool-btn" data-tool="underline">
+            <i class="fa fa-underline"></i>
+            <span>Underline</span>
+          </button>
+          <button class="tool-btn" data-tool="strikethrough">
+            <i class="fa fa-strikethrough"></i>
+            <span>Strikethrough</span>
+          </button>
+        </div>
+
+        <div class="tg-divider"></div>
+
+        <!-- Draw -->
+        <div class="tool-group">
+          <div class="tg-sep-label">Draw</div>
+          <button class="tool-btn" data-tool="pencil">
+            <i class="fa fa-pencil"></i>
+            <span>Freehand</span>
+          </button>
+          <button class="tool-btn" data-tool="rect">
+            <i class="far fa-square"></i>
+            <span>Rectangle</span>
+          </button>
+          <button class="tool-btn" data-tool="circle">
+            <i class="far fa-circle"></i>
+            <span>Circle</span>
+          </button>
+          <button class="tool-btn" data-tool="line">
+            <i class="fa fa-minus"></i>
+            <span>Line</span>
+          </button>
+          <button class="tool-btn" data-tool="arrow">
+            <i class="fa fa-arrow-right-long"></i>
+            <span>Arrow</span>
+          </button>
+          <button class="tool-btn" data-tool="eraser">
+            <i class="fa fa-eraser"></i>
+            <span>Eraser</span>
+          </button>
+        </div>
+
+        <div class="tg-divider"></div>
+
+        <!-- Annotate -->
+        <div class="tool-group">
+          <div class="tg-sep-label">Annotate</div>
+          <button class="tool-btn" data-tool="sticky">
+            <i class="fa fa-note-sticky"></i>
+            <span>Sticky Note</span>
+          </button>
+          <button class="tool-btn" data-tool="stamp-approved">
+            <i class="fa fa-stamp"></i>
+            <span>Stamp</span>
+          </button>
+          <button class="tool-btn" onclick="App.insertImage()">
+            <i class="fa fa-image"></i>
+            <span>Image</span>
+          </button>
+        </div>
+
+        <div class="tg-divider"></div>
+
+        <!-- Forms -->
+        <div class="tool-group">
+          <div class="tg-sep-label">Forms</div>
+          <button class="tool-btn" data-tool="form-text">
+            <i class="fa fa-keyboard"></i>
+            <span>Text Field</span>
+          </button>
+          <button class="tool-btn" data-tool="form-check">
+            <i class="fa fa-square-check"></i>
+            <span>Checkbox</span>
+          </button>
+          <button class="tool-btn" data-tool="form-radio">
+            <i class="far fa-circle-dot"></i>
+            <span>Radio</span>
+          </button>
+        </div>
+
+        <div class="tg-divider"></div>
+
+        <!-- Protect -->
+        <div class="tool-group">
+          <div class="tg-sep-label">Protect</div>
+          <button class="tool-btn" data-tool="redact">
+            <i class="fa fa-ban"></i>
+            <span>Redact</span>
+          </button>
+          <button class="tool-btn" onclick="App.openWatermark()">
+            <i class="fa fa-droplet"></i>
+            <span>Watermark</span>
+          </button>
+        </div>
+
+        <div class="tg-divider"></div>
+
+        <!-- Sign -->
+        <div class="tool-group">
+          <div class="tg-sep-label">Sign</div>
+          <button class="tool-btn" onclick="App.openSignature()">
+            <i class="fa fa-signature"></i>
+            <span>Signature</span>
+          </button>
+        </div>
+
+        <div class="tg-divider"></div>
+
+        <!-- AI Tools (prominent) -->
+        <div class="tool-group ai-tool-group">
+          <div class="tg-sep-label ai-sep-label">✦ AI Tools</div>
+          <button class="tool-btn ai-tool-btn" onclick="AI.runOCRCurrentPage()">
+            <i class="fa fa-eye"></i>
+            <span>OCR</span>
+          </button>
+          <button class="tool-btn ai-tool-btn" onclick="App.openAI('rewrite')">
+            <i class="fa fa-wand-magic-sparkles"></i>
+            <span>AI Edit</span>
+          </button>
+          <button class="tool-btn ai-tool-btn" onclick="App.openAI('fix-grammar')">
+            <i class="fa fa-spell-check"></i>
+            <span>Fix Text</span>
+          </button>
+          <button class="tool-btn ai-tool-btn" onclick="App.openAI('translate')">
+            <i class="fa fa-language"></i>
+            <span>Translate</span>
+          </button>
+          <button class="tool-btn ai-tool-btn" onclick="App.openAI('summarize')">
+            <i class="fa fa-list-ul"></i>
+            <span>Summarize</span>
+          </button>
+          <button class="tool-btn ai-tool-btn" onclick="App.openAI('bullet')">
+            <i class="fa fa-list-check"></i>
+            <span>To Bullets</span>
+          </button>
+        </div>
+
+        <div class="tg-divider"></div>
+
+        <!-- Pages -->
+        <div class="tool-group">
+          <div class="tg-sep-label">Pages</div>
+          <button class="tool-btn" onclick="App.rotatePage()">
+            <i class="fa fa-rotate-right"></i>
+            <span>Rotate</span>
+          </button>
+          <button class="tool-btn" onclick="App.deletePage()">
+            <i class="fa fa-trash"></i>
+            <span>Delete</span>
+          </button>
+        </div>
+
+      </div><!-- /tools-scroll -->
+
+      <!-- Style controls at bottom -->
+      <div class="tools-style-dock">
+        <div class="style-row">
+          <label class="color-pick-lbl" title="Fill / Text Color">
+            <div class="color-swatch" id="fill-swatch" style="background:#000"></div>
+            <input type="color" id="fill-color" value="#000000" oninput="Editor.setFillColor(this.value)">
+            <span>Fill</span>
+          </label>
+          <label class="color-pick-lbl" title="Stroke Color">
+            <div class="color-swatch stroke-ring" id="stroke-swatch"></div>
+            <input type="color" id="stroke-color" value="#000000" oninput="Editor.setStrokeColor(this.value)">
+            <span>Stroke</span>
+          </label>
+        </div>
+        <div class="style-row">
+          <select id="font-size" onchange="Editor.setFontSize(+this.value)" title="Font Size">
+            <option value="8">8pt</option><option value="10">10pt</option>
+            <option value="12" selected>12pt</option><option value="14">14pt</option>
+            <option value="16">16pt</option><option value="18">18pt</option>
+            <option value="24">24pt</option><option value="36">36pt</option>
+            <option value="48">48pt</option>
+          </select>
+          <select id="stroke-width" onchange="Editor.setStrokeWidth(+this.value)" title="Stroke Width">
+            <option value="1">1px</option><option value="2" selected>2px</option>
+            <option value="3">3px</option><option value="5">5px</option>
+            <option value="8">8px</option>
+          </select>
+        </div>
+      </div>
+
+    </aside><!-- /left-tools -->
+
+    <!-- ════ PDF VIEWER ════ -->
+    <main id="viewer-wrap">
+      <div id="pages-container"></div>
+      <div id="loading" style="display:none">
+        <div class="loading-inner">
+          <div class="loading-rings">
+            <div class="ring r1"></div>
+            <div class="ring r2"></div>
+            <div class="ring r3"></div>
+          </div>
+          <p id="loading-msg">Loading…</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- ════ RIGHT PANEL ════ -->
+    <aside id="right-panel">
+      <div class="rp-tabs">
+        <button class="rp-tab active" data-rptab="pages" title="Pages"><i class="fa fa-table-cells-large"></i><span>Pages</span></button>
+        <button class="rp-tab" data-rptab="props" title="Properties"><i class="fa fa-sliders"></i><span>Props</span></button>
+        <button class="rp-tab" data-rptab="ai" title="AI Assistant"><i class="fa fa-robot"></i><span>AI</span></button>
+        <button class="rp-tab" data-rptab="comments" title="Comments"><i class="fa fa-comments"></i><span>Notes</span></button>
+      </div>
+      <div class="rp-body">
+
+        <!-- Pages Tab -->
+        <div id="rptab-pages" class="rp-section active">
+          <div class="rp-header">
+            Pages
+            <span id="rp-page-count" class="rp-page-count"></span>
+          </div>
+          <div id="thumbnails" class="thumbnails-list"></div>
+        </div>
+
+        <!-- Properties Tab -->
+        <div id="rptab-props" class="rp-section">
+          <div class="rp-header">Document</div>
+          <div id="doc-info" class="rp-info-block">Open a PDF to see its details</div>
+          <div id="obj-props" style="display:none">
+            <div class="rp-header" style="margin-top:8px">Selected Object</div>
+            <div class="props-grid">
+              <label>X<input id="px" type="number" class="prop-in" onchange="Editor.setProp('left',+this.value)"></label>
+              <label>Y<input id="py" type="number" class="prop-in" onchange="Editor.setProp('top',+this.value)"></label>
+              <label>W<input id="pw" type="number" class="prop-in" onchange="Editor.setProp('width',+this.value)"></label>
+              <label>H<input id="ph" type="number" class="prop-in" onchange="Editor.setProp('height',+this.value)"></label>
+              <label>°<input id="pr" type="number" class="prop-in" onchange="Editor.setProp('angle',+this.value)"></label>
+              <label>Opacity<input id="po" type="range" min="0" max="100" value="100" oninput="Editor.setSelectedOpacity(this.value/100)"></label>
+            </div>
+            <button class="btn-delete-obj" onclick="Editor.deleteSelected()"><i class="fa fa-trash"></i> Delete Object</button>
+          </div>
+        </div>
+
+        <!-- AI Tab -->
+        <div id="rptab-ai" class="rp-section">
+          <div class="rp-header">✦ AI Assistant</div>
+          <div class="ai-panel-body">
+            <div id="ai-key-warn" class="warn-box" style="display:none">
+              <i class="fa fa-triangle-exclamation"></i>
+              Add your Anthropic API key in <strong>Settings</strong> to enable AI.
+            </div>
+            <select id="ai-action" class="ai-select">
+              <option value="rewrite">Rewrite</option>
+              <option value="fix-grammar">Fix Grammar</option>
+              <option value="improve">Improve Writing</option>
+              <option value="shorten">Shorten</option>
+              <option value="expand">Expand</option>
+              <option value="formal">Make Formal</option>
+              <option value="casual">Make Casual</option>
+              <option value="bullet">Convert to Bullets</option>
+              <option value="translate">Translate</option>
+              <option value="summarize">Summarize Doc</option>
+              <option value="custom">Custom Prompt</option>
+            </select>
+            <div id="ai-lang-row" style="display:none">
+              <select id="ai-lang" class="ai-select">
+                <option>Spanish</option><option>French</option><option>German</option>
+                <option>Chinese</option><option>Japanese</option><option>Portuguese</option>
+                <option>Italian</option><option>Russian</option><option>Arabic</option>
+                <option>Hindi</option><option>Korean</option>
+              </select>
+            </div>
+            <div id="ai-custom-row" style="display:none">
+              <textarea id="ai-custom" class="ai-textarea" placeholder="Describe what you want AI to do…" rows="2"></textarea>
+            </div>
+            <label class="ai-field-label">Input Text</label>
+            <textarea id="ai-input" class="ai-textarea" placeholder="Select text on the PDF, or paste here…" rows="5"></textarea>
+            <button class="btn-run-ai" onclick="AI.processAI()">
+              <i class="fa fa-wand-magic-sparkles"></i> Run AI
+            </button>
+            <div id="ai-spinner" class="ai-spinner" style="display:none">
+              <div class="ai-spin-orb"></div> Processing…
+            </div>
+            <div id="ai-result-box" style="display:none">
+              <label class="ai-field-label">Result</label>
+              <textarea id="ai-result" class="ai-textarea" rows="5" readonly></textarea>
+              <div class="ai-result-btns">
+                <button class="btn-apply-ai" onclick="AI.applyResult()"><i class="fa fa-check"></i> Apply to PDF</button>
+                <button class="btn-copy-ai" onclick="AI.copyResult()"><i class="fa fa-copy"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comments Tab -->
+        <div id="rptab-comments" class="rp-section">
+          <div class="rp-header">Comments &amp; Notes</div>
+          <div id="comments-list" class="empty-panel-state">No comments yet</div>
+        </div>
+
+      </div>
+    </aside>
+
+  </div><!-- /editor-body -->
+
+  <!-- ── Status Bar ── -->
+  <footer id="status-bar">
+    <div class="sb-l">
+      <span id="sb-tool" class="sb-chip">Select</span>
+      <span class="sb-pipe">|</span>
+      <span id="sb-file" class="sb-dim">No file</span>
+    </div>
+    <div class="sb-c">
+      <button class="sb-nav" id="btn-prev" onclick="App.prevPage()" disabled>&#8249;</button>
+      <span class="sb-dim">Page</span>
+      <input type="number" id="page-num" value="1" min="1" onchange="App.goToPage(+this.value)">
+      <span class="sb-dim">of <strong id="total-pages">–</strong></span>
+      <button class="sb-nav" id="btn-next" onclick="App.nextPage()" disabled>&#8250;</button>
+    </div>
+    <div class="sb-r">
+      <span id="ai-status" class="ai-status-dot">AI Ready</span>
+    </div>
+  </footer>
+
+</div><!-- /editor -->
+
+<!-- ════ MODALS ════ -->
+
+<!-- Settings -->
+<div id="modal-settings" class="modal-overlay" style="display:none" onclick="App.closeModalBg(event,'modal-settings')">
+  <div class="modal-box">
+    <div class="modal-head"><h3><i class="fa fa-gear"></i> Settings</h3><button onclick="App.closeModal('modal-settings')"><i class="fa fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <div class="setting-group">
+        <h4>AI Configuration</h4>
+        <div class="setting-field">
+          <label>Anthropic API Key</label>
+          <div class="api-key-row">
+            <input type="password" id="api-key" placeholder="sk-ant-api03-…" autocomplete="off">
+            <button onclick="App.toggleKeyVis()"><i class="fa fa-eye" id="key-eye"></i></button>
+          </div>
+          <p class="setting-hint">Stored in your browser only. Get your key at console.anthropic.com</p>
+        </div>
+        <div class="setting-field">
+          <label>AI Model</label>
+          <select id="ai-model">
+            <option value="claude-sonnet-4-6">Claude Sonnet 4.6 (Recommended)</option>
+            <option value="claude-opus-4-7">Claude Opus 4.7 (Most Capable)</option>
+            <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 (Fastest)</option>
+          </select>
+        </div>
+      </div>
+      <div class="setting-group">
+        <h4>Editor</h4>
+        <div class="setting-field">
+          <label>Default Zoom</label>
+          <select id="def-zoom">
+            <option value="0.75">75%</option>
+            <option value="1" selected>100%</option>
+            <option value="1.25">125%</option>
+            <option value="1.5">150%</option>
+          </select>
+        </div>
+        <div class="setting-field row">
+          <label>Auto OCR on load</label>
+          <input type="checkbox" id="auto-ocr">
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-modal-cancel" onclick="App.closeModal('modal-settings')">Cancel</button>
+      <button class="btn-modal-ok" onclick="App.saveSettings()">Save Settings</button>
+    </div>
+  </div>
+</div>
+
+<!-- AI Action Modal -->
+<div id="modal-ai" class="modal-overlay" style="display:none" onclick="App.closeModalBg(event,'modal-ai')">
+  <div class="modal-box">
+    <div class="modal-head"><h3><i class="fa fa-wand-magic-sparkles"></i> AI Assistant</h3><button onclick="App.closeModal('modal-ai')"><i class="fa fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <div id="ai-modal-key-warn" class="warn-box" style="display:none"><i class="fa fa-triangle-exclamation"></i> Add your API key in Settings first.</div>
+      <div class="modal-field"><label>Action</label>
+        <select id="ai-modal-action" onchange="AI.onModalActionChange()">
+          <option value="rewrite">Rewrite</option>
+          <option value="fix-grammar">Fix Grammar</option>
+          <option value="improve">Improve Writing</option>
+          <option value="shorten">Shorten</option>
+          <option value="expand">Expand</option>
+          <option value="formal">Make Formal</option>
+          <option value="casual">Make Casual</option>
+          <option value="bullet">Convert to Bullet Points</option>
+          <option value="translate">Translate</option>
+          <option value="summarize">Summarize Document</option>
+          <option value="custom">Custom Prompt</option>
+        </select>
+      </div>
+      <div id="ai-modal-lang-row" style="display:none" class="modal-field"><label>Target Language</label>
+        <select id="ai-modal-lang">
+          <option>Spanish</option><option>French</option><option>German</option>
+          <option>Chinese</option><option>Japanese</option><option>Portuguese</option>
+          <option>Italian</option><option>Russian</option><option>Arabic</option>
+          <option>Hindi</option><option>Korean</option>
+        </select>
+      </div>
+      <div id="ai-modal-custom-row" style="display:none" class="modal-field"><label>Your Instruction</label>
+        <textarea id="ai-modal-custom" rows="2" placeholder="e.g. Convert to JSON, Extract key dates…"></textarea>
+      </div>
+      <div class="modal-field"><label>Input Text</label>
+        <textarea id="ai-modal-input" rows="6" placeholder="Paste text here, or select text on the PDF first…"></textarea>
+      </div>
+      <button class="btn-modal-ai" onclick="AI.processModalAI()"><i class="fa fa-wand-magic-sparkles"></i> Process with AI</button>
+      <div id="ai-modal-spinner" style="display:none" class="modal-spinner"><div class="ai-spin-orb"></div> Thinking…</div>
+      <div id="ai-modal-result-box" style="display:none">
+        <div class="modal-field"><label>Result</label><textarea id="ai-modal-result" rows="6" readonly></textarea></div>
+        <div class="modal-result-btns">
+          <button class="btn-modal-ok" onclick="AI.applyModalResult()"><i class="fa fa-check"></i> Apply to PDF</button>
+          <button class="btn-modal-cancel" onclick="AI.copyModalResult()"><i class="fa fa-copy"></i> Copy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Find & Replace -->
+<div id="modal-findreplace" class="modal-overlay" style="display:none" onclick="App.closeModalBg(event,'modal-findreplace')">
+  <div class="modal-box modal-sm">
+    <div class="modal-head"><h3><i class="fa fa-magnifying-glass"></i> Find &amp; Replace</h3><button onclick="App.closeModal('modal-findreplace')"><i class="fa fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <div class="modal-field"><label>Find</label><input id="find-text" type="text" placeholder="Search text…"></div>
+      <div class="modal-field"><label>Replace with</label><input id="replace-text" type="text" placeholder="Replacement…"></div>
+      <div class="modal-field row"><label><input type="checkbox" id="fr-case"> Case sensitive</label><label><input type="checkbox" id="fr-word"> Whole word</label></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-modal-cancel" onclick="App.findNext()">Find Next</button>
+      <button class="btn-modal-cancel" onclick="App.replaceCurrent()">Replace</button>
+      <button class="btn-modal-ok" onclick="App.replaceAll()">Replace All</button>
+    </div>
+  </div>
+</div>
+
+<!-- Signature -->
+<div id="modal-signature" class="modal-overlay" style="display:none" onclick="App.closeModalBg(event,'modal-signature')">
+  <div class="modal-box modal-lg">
+    <div class="modal-head"><h3><i class="fa fa-signature"></i> Add Signature</h3><button onclick="App.closeModal('modal-signature')"><i class="fa fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <div class="sig-mode-tabs">
+        <button class="sig-mode-tab active" data-sig="draw">✏ Draw</button>
+        <button class="sig-mode-tab" data-sig="type">Aa Type</button>
+        <button class="sig-mode-tab" data-sig="upload">⬆ Upload</button>
+      </div>
+      <div id="sig-draw" class="sig-panel active">
+        <div class="sig-canvas-wrap"><canvas id="sig-canvas" width="580" height="190"></canvas></div>
+        <div class="sig-controls">
+          <button onclick="App.clearSig()"><i class="fa fa-eraser"></i> Clear</button>
+          <label>Color <input type="color" id="sig-color" value="#000080"></label>
+          <label>Thickness <input type="range" id="sig-thick" min="1" max="8" value="2"></label>
+        </div>
+      </div>
+      <div id="sig-type" class="sig-panel">
+        <input type="text" id="sig-type-text" class="sig-type-input" placeholder="Type your name…">
+        <div class="sig-fonts">
+          <button class="sfont active" data-font="cursive" style="font-family:cursive;font-size:22px">John Smith</button>
+          <button class="sfont" data-font="'Palatino Linotype',serif" style="font-family:'Palatino Linotype',serif;font-size:20px">John Smith</button>
+          <button class="sfont" data-font="Georgia,serif" style="font-family:Georgia,serif;font-size:20px">John Smith</button>
+        </div>
+      </div>
+      <div id="sig-upload" class="sig-panel">
+        <input type="file" id="sig-file" accept="image/*" onchange="App.previewSigImage(this)">
+        <img id="sig-preview" style="max-width:100%;max-height:200px;display:none;margin-top:12px;border-radius:8px">
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-modal-cancel" onclick="App.closeModal('modal-signature')">Cancel</button>
+      <button class="btn-modal-ok" onclick="App.applySig()"><i class="fa fa-check"></i> Place Signature</button>
+    </div>
+  </div>
+</div>
+
+<!-- Watermark -->
+<div id="modal-watermark" class="modal-overlay" style="display:none" onclick="App.closeModalBg(event,'modal-watermark')">
+  <div class="modal-box modal-sm">
+    <div class="modal-head"><h3><i class="fa fa-droplet"></i> Add Watermark</h3><button onclick="App.closeModal('modal-watermark')"><i class="fa fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <div class="modal-field"><label>Text</label><input id="wm-text" type="text" value="CONFIDENTIAL"></div>
+      <div class="modal-field"><label>Color</label><input type="color" id="wm-color" value="#ff0000"></div>
+      <div class="modal-field"><label>Opacity — <span id="wm-op-val">30%</span></label><input type="range" id="wm-opacity" min="5" max="100" value="30" oninput="document.getElementById('wm-op-val').textContent=this.value+'%'"></div>
+      <div class="modal-field"><label>Size — <span id="wm-sz-val">60pt</span></label><input type="range" id="wm-size" min="20" max="200" value="60" oninput="document.getElementById('wm-sz-val').textContent=this.value+'pt'"></div>
+      <div class="modal-field row"><label><input type="checkbox" id="wm-all" checked> Apply to all pages</label></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-modal-cancel" onclick="App.closeModal('modal-watermark')">Cancel</button>
+      <button class="btn-modal-ok" onclick="App.applyWatermark()">Apply</button>
+    </div>
+  </div>
+</div>
+
+<!-- OCR Progress -->
+<div id="modal-ocr" class="modal-overlay" style="display:none">
+  <div class="modal-box modal-sm">
+    <div class="modal-head"><h3><i class="fa fa-eye"></i> OCR Processing</h3></div>
+    <div class="modal-body">
+      <p id="ocr-msg" class="ocr-msg-text">Initializing OCR engine…</p>
+      <div class="ocr-progress-bar"><div id="ocr-bar" class="ocr-progress-fill" style="width:0%"></div></div>
+      <div id="ocr-result-preview" style="display:none;margin-top:14px">
+        <label class="modal-field-label">Extracted Text Preview</label>
+        <textarea id="ocr-text-out" rows="6" readonly class="ocr-text-area"></textarea>
+      </div>
+    </div>
+    <div class="modal-foot"><button class="btn-modal-ok" id="ocr-done-btn" onclick="App.closeModal('modal-ocr')" style="display:none">Done</button></div>
+  </div>
+</div>
+
+<!-- Context Menu -->
+<div id="ctx-menu" style="display:none">
+  <div class="ctx-item" onclick="Editor.copySelected()"><i class="fa fa-copy"></i> Copy</div>
+  <div class="ctx-item" onclick="Editor.duplicateSelected()"><i class="fa fa-clone"></i> Duplicate</div>
+  <div class="ctx-item danger" onclick="Editor.deleteSelected()"><i class="fa fa-trash"></i> Delete</div>
+  <hr>
+  <div class="ctx-item" onclick="Editor.bringForward()"><i class="fa fa-arrow-up"></i> Bring Forward</div>
+  <div class="ctx-item" onclick="Editor.sendBackward()"><i class="fa fa-arrow-down"></i> Send Back</div>
+  <hr>
+  <div class="ctx-item ai-item" onclick="AI.editSelectedWithAI()"><i class="fa fa-wand-magic-sparkles"></i> Edit with AI…</div>
+</div>
+
+<!-- Toasts -->
+<div id="toasts"></div>
+
+<script src="js/ai-engine.js"></script>
+<script src="js/editor.js"></script>
+<script src="js/pdf-viewer.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

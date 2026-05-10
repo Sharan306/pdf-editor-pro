@@ -1,0 +1,13 @@
+{
+  "name": "pdf-editor-pro",
+  "version": "1.0.0",
+  "description": "PDF Editor with AI capabilities — Adobe Acrobat Pro alternative",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY} node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
